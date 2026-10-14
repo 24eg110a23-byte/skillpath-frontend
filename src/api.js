@@ -22,7 +22,7 @@ async function request(path, options = {}) {
 const json = (method, body) => ({ method, body: JSON.stringify(body) });
 
 export const api = {
-  stats: () => request("/stats"),
+  stats: () => request("/dashboard"),
   skills: {
     list: () => request("/skills"),
     create: (data) => request("/skills", json("POST", data)),
