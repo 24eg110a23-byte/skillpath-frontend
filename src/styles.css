@@ -77,7 +77,7 @@ button.meter-step:hover { border-color: var(--accent); }
 .bar span { display: block; height: 100%; background: var(--accent); transition: width 0.3s ease; }
 .bar.is-done span { background: var(--done); }
 .status { font-size: 0.78rem; font-weight: 600; padding: 0.15rem 0.6rem; border-radius: 999px; white-space: nowrap; }
-.status-PLANNED { background: var(--page); color: var(--muted); }
+.status-NOT_STARTED { background: var(--page); color: var(--muted); }
 .status-IN_PROGRESS { background: var(--accent-soft); color: var(--accent); }
 .status-COMPLETED { background: #dff3ea; color: var(--done); }
 

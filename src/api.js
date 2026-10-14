@@ -66,7 +66,7 @@ export const api = {
           try {
             await request(`/courses/${course.id}`, { method: "DELETE" });
           } catch (cleanupError) {
-            throw new Error(`${error.message} The course was created but could not be removed.`);
+            throw new Error(`${error.message} The course was created but could not be removed: ${cleanupError.message}`);
           }
           throw error;
         }

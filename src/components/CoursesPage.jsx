@@ -217,7 +217,7 @@ function CourseForm({ initial, id, skills, onDone }) {
       </div>
       <div className="form-pair">
         <Field label="Total hours" error={fieldErrors.hoursTotal}>
-          <input type="number" min={0} value={form.hoursTotal} onChange={set("hoursTotal")} />
+          <input type="number" min={0} max={10000} value={form.hoursTotal} onChange={set("hoursTotal")} />
         </Field>
         <Field label="Started on">
           <input type="date" value={form.startedOn} onChange={set("startedOn")} />
