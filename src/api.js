@@ -24,13 +24,13 @@ const json = (method, body) => ({ method, body: JSON.stringify(body) });
 export const api = {
   stats: () => request("/dashboard"),
   skills: {
-    list: () => request("/skills"),
+    list: async () => (await request("/skills")).content,
     create: (data) => request("/skills", json("POST", data)),
     update: (id, data) => request(`/skills/${id}`, json("PUT", data)),
     remove: (id) => request(`/skills/${id}`, { method: "DELETE" }),
   },
   courses: {
-    list: () => request("/courses"),
+    list: async () => (await request("/courses")).content,
     create: (data) => request("/courses", json("POST", data)),
     update: (id, data) => request(`/courses/${id}`, json("PUT", data)),
     remove: (id) => request(`/courses/${id}`, { method: "DELETE" }),
