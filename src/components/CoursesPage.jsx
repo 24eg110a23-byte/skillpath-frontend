@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { api } from "../api";
-import { STATUS_LABELS, courseToRequest } from "../constants";
+import { STATUS_LABELS } from "../constants";
 import Dialog from "./Dialog";
 import { Empty } from "./Overview";
 import ProgressBar from "./ProgressBar";
@@ -10,11 +10,11 @@ const BLANK = {
   title: "",
   provider: "",
   url: "",
-  status: "PLANNED",
+  status: "NOT_STARTED",
   progress: 0,
   hoursTotal: "",
   startedOn: "",
-  completedOn: "",
+  targetCompletionDate: "",
   notes: "",
   skillId: "",
 };
@@ -29,7 +29,7 @@ export default function CoursesPage({ courses, skills, onChange, onError }) {
 
   async function markDone(course) {
     try {
-      await api.courses.update(course.id, { ...courseToRequest(course), status: "COMPLETED", progress: 100 });
+      await api.courses.update(course.id, { ...course, status: "COMPLETED", progress: 100 });
       onChange();
     } catch (e) {
       onError(e.message);
@@ -140,7 +140,7 @@ function CourseForm({ initial, id, skills, onDone }) {
     url: initial.url ?? "",
     hoursTotal: initial.hoursTotal ?? "",
     startedOn: initial.startedOn ?? "",
-    completedOn: initial.completedOn ?? "",
+    targetCompletionDate: initial.targetCompletionDate ?? "",
     notes: initial.notes ?? "",
     skillId: initial.skillId ?? "",
   });
@@ -163,7 +163,7 @@ function CourseForm({ initial, id, skills, onDone }) {
       progress: Number(form.progress) || 0,
       hoursTotal: form.hoursTotal === "" ? null : Number(form.hoursTotal),
       startedOn: form.startedOn || null,
-      completedOn: form.completedOn || null,
+      targetCompletionDate: form.targetCompletionDate || null,
       notes: form.notes,
       skillId: form.skillId === "" ? null : Number(form.skillId),
     };
@@ -181,11 +181,11 @@ function CourseForm({ initial, id, skills, onDone }) {
   return (
     <form onSubmit={submit} className="form">
       <Field label="Title" error={fieldErrors.title}>
-        <input value={form.title} onChange={set("title")} required maxLength={200} autoFocus />
+        <input value={form.title} onChange={set("title")} required maxLength={160} autoFocus />
       </Field>
       <div className="form-pair">
         <Field label="Provider">
-          <input value={form.provider} onChange={set("provider")} maxLength={100} placeholder="Udemy, Coursera" />
+          <input value={form.provider} onChange={set("provider")} required maxLength={120} placeholder="Udemy, Coursera" />
         </Field>
         <Field label="Skill it builds">
           <select value={form.skillId} onChange={set("skillId")}>
@@ -221,6 +221,9 @@ function CourseForm({ initial, id, skills, onDone }) {
         </Field>
         <Field label="Started on">
           <input type="date" value={form.startedOn} onChange={set("startedOn")} />
+        </Field>
+        <Field label="Target completion date">
+          <input type="date" value={form.targetCompletionDate} onChange={set("targetCompletionDate")} />
         </Field>
       </div>
       <Field label="Notes" error={fieldErrors.notes}>

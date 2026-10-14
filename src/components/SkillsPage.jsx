@@ -51,7 +51,7 @@ export default function SkillsPage({ skills, onChange, onError }) {
               <div className="row-main">
                 <strong>{s.name}</strong>
                 <span className="muted">
-                  {[s.category, `${s.completedCourseCount} of ${s.courseCount} courses done`].filter(Boolean).join(", ")}
+                  {[s.category, `${s.courseCount} linked courses`].filter(Boolean).join(", ")}
                 </span>
                 {s.description && <span className="desc">{s.description}</span>}
               </div>
